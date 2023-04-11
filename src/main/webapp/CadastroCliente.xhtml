@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<h:outputStylesheet library="css" name="file.css" />
+	<title>Cadastro de Clientes</title>
+</h:head>
+<h:body>
+	<h:form>
+		<p:panelGrid columns="2" id="consulta-cnpj">
+			<h:outputLabel for="cnpj" value="CNPJ:" />
+			<p:inputText id="cnpj" value="#{consultaCnpjBean.cnpj}" />
+
+			<p:commandButton value="Consultar" action="#{consultaCnpjBean.consultar}" update="resultado-cnpj" />
+
+		</p:panelGrid>
+
+		<p:panel id="resultado-cnpj">
+			<h:panelGrid columns="2" rendered="#{not empty consultaCnpjBean.dadosCNPJBuscado}">
+				<h:outputText value="Abertura: #{consultaCnpjBean.dadosCNPJBuscado[0].abertura}" />
+				<br />
+				<h:outputText value="Situação: #{consultaCnpjBean.dadosCNPJBuscado[0].situacao}" />
+				<br />
+				<h:outputText value="Tipo: #{consultaCnpjBean.dadosCNPJBuscado[0].tipo}" />
+				<br />
+				<h:outputText value="Nome: #{consultaCnpjBean.dadosCNPJBuscado[0].nome}" />
+				<br />
+				<h:outputText value="Porte: #{consultaCnpjBean.dadosCNPJBuscado[0].porte}" />
+				<br />
+				<h:outputText value="Fantasia: #{consultaCnpjBean.dadosCNPJBuscado[0].fantasia}" />
+				<br />
+				<h:outputText value="Ultima Atualização: #{consultaCnpjBean.dadosCNPJBuscado[0].ultimaAtualizacao}" />
+				<br />
+				<h:outputText value="CNPJ: #{consultaCnpjBean.dadosCNPJBuscado[0].cnpj}" />
+				<br />
+				<h:outputText value="Código Atv. principal: #{consultaCnpjBean.dadosCNPJBuscado[0].atividadePrincipalCode}" />
+				<br />
+				<h:outputText value="Descrição Atv. principal: #{consultaCnpjBean.dadosCNPJBuscado[0].atividadePrincipalText}" />
+				<br />
+				<h:outputText value="Logradouro: #{consultaCnpjBean.dadosCNPJBuscado[0].logradouro}" />
+				<br />
+				<h:outputText value="Numero: #{consultaCnpjBean.dadosCNPJBuscado[0].numero}" />
+				<br />
+				<h:outputText value="Municipio: #{consultaCnpjBean.dadosCNPJBuscado[0].municipio}" />
+				<br />
+				<h:outputText value="Bairro: #{consultaCnpjBean.dadosCNPJBuscado[0].bairro}" />
+				<br />
+				<h:outputText value="UF: #{consultaCnpjBean.dadosCNPJBuscado[0].uf}" />
+				<br />
+				<h:outputText value="CEP: #{consultaCnpjBean.dadosCNPJBuscado[0].cep}" />
+				<br />
+				<h:outputText value="E-mail: #{consultaCnpjBean.dadosCNPJBuscado[0].email}" />
+				<br />
+				<h:outputText value="Telefone: #{consultaCnpjBean.dadosCNPJBuscado[0].telefone}" />
+				<br />
+				<h:outputText value="Status: #{consultaCnpjBean.dadosCNPJBuscado[0].status}" />
+				<br />
+				<h:outputText value="Complemento: #{consultaCnpjBean.dadosCNPJBuscado[0].complemento}" />
+				<br />
+				<h:outputText value="Capital Social: #{consultaCnpjBean.dadosCNPJBuscado[0].capitalSocial}" />
+				<br />
+				<h:outputText value="Natureza Jurídica: #{consultaCnpjBean.dadosCNPJBuscado[0].naturezaJuridica}" />
+				<br />
+				<h:outputText value="Atividades Secundárias: #{consultaCnpjBean.dadosCNPJBuscado[0].listaDeAtividadesSecundarias}" />
+			</h:panelGrid>
+
+			<h:panelGroup rendered="#{empty consultaCnpjBean.dadosCNPJBuscado}">
+				<h:outputText value="Nenhum resultado encontrado." />
+			</h:panelGroup>
+		</p:panel>
+	</h:form>
+</h:body>
+</html>
