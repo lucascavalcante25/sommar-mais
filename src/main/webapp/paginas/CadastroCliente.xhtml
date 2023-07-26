@@ -1,19 +1,56 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui">
+	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-	<h:outputStylesheet library="css" name="file.css" />
+	<h:outputStylesheet library="css" name="style.css" />
 	<title>Cadastro de Clientes</title>
 </h:head>
 <h:body>
 	<h:form>
+		<p:toolbar>
+			<p:toolbarGroup>
+				<p:commandButton type="button" value="New" icon="pi pi-file" styleClass="mr-2" />
+				<p:commandButton type="button" value="Open" icon="pi pi-folder-open"
+					styleClass="ui-button-success" />
+
+				<i class="pi pi-bars px-2" />
+
+				<p:commandButton type="button" title="Save" icon="pi pi-save" styleClass="ui-button-help mr-2" />
+				<p:commandButton type="button" title="Print" icon="pi pi-print"
+					styleClass="ui-button-warning mr-2" />
+				<p:commandButton type="button" title="Delete" icon="pi pi-trash" styleClass="ui-button-danger" />
+			</p:toolbarGroup>
+
+
+			<p:toolbarGroup align="right">
+				<p:menuButton value="Options">
+					<p:menuitem value="Save" icon="pi pi-save" />
+					<p:menuitem value="Update" icon="pi pi-refresh" />
+					<p:menuitem value="Delete" ajax="false" icon="pi pi-times" />
+					<p:menuitem value="Homepage" url="http://www.primefaces.org" icon="pi pi-home" />
+				</p:menuButton>
+			</p:toolbarGroup>
+		</p:toolbar>
+		<p:panelMenu style="width:300px">
+			<p:submenu label="Options">
+				<p:menuitem value="Save (Non-Ajax)" ajax="false" icon="pi pi-save" />
+				<p:menuitem value="Update" icon="pi pi-refresh" />
+				<p:menuitem value="Delete" icon="pi pi-times" />
+			</p:submenu>
+			<p:submenu label="Navigations">
+				<p:menuitem value="Website" url="http://www.primefaces.org" icon="pi pi-external-link" />
+				<p:menuitem value="Internal" icon="pi pi-upload" />
+			</p:submenu>
+		</p:panelMenu>
 		<p:panelGrid columns="2" id="consulta-cnpj">
 			<h:outputLabel for="cnpj" value="CNPJ:" />
 			<p:inputText id="cnpj" value="#{consultaCnpjBean.cnpj}" />
 
 			<p:commandButton value="Consultar" action="#{consultaCnpjBean.consultar}" update="resultado-cnpj" />
+				<h:button value="Index" outcome="paginas/Sucesso.xhtml"/>
 
 		</p:panelGrid>
 
@@ -31,13 +68,16 @@
 				<br />
 				<h:outputText value="Fantasia: #{consultaCnpjBean.dadosCNPJBuscado[0].fantasia}" />
 				<br />
-				<h:outputText value="Ultima Atualização: #{consultaCnpjBean.dadosCNPJBuscado[0].ultimaAtualizacao}" />
+				<h:outputText
+					value="Ultima Atualização: #{consultaCnpjBean.dadosCNPJBuscado[0].ultimaAtualizacao}" />
 				<br />
 				<h:outputText value="CNPJ: #{consultaCnpjBean.dadosCNPJBuscado[0].cnpj}" />
 				<br />
-				<h:outputText value="Código Atv. principal: #{consultaCnpjBean.dadosCNPJBuscado[0].atividadePrincipalCode}" />
+				<h:outputText
+					value="Código Atv. principal: #{consultaCnpjBean.dadosCNPJBuscado[0].atividadePrincipalCode}" />
 				<br />
-				<h:outputText value="Descrição Atv. principal: #{consultaCnpjBean.dadosCNPJBuscado[0].atividadePrincipalText}" />
+				<h:outputText
+					value="Descrição Atv. principal: #{consultaCnpjBean.dadosCNPJBuscado[0].atividadePrincipalText}" />
 				<br />
 				<h:outputText value="Logradouro: #{consultaCnpjBean.dadosCNPJBuscado[0].logradouro}" />
 				<br />
@@ -61,9 +101,11 @@
 				<br />
 				<h:outputText value="Capital Social: #{consultaCnpjBean.dadosCNPJBuscado[0].capitalSocial}" />
 				<br />
-				<h:outputText value="Natureza Jurídica: #{consultaCnpjBean.dadosCNPJBuscado[0].naturezaJuridica}" />
+				<h:outputText
+					value="Natureza Jurídica: #{consultaCnpjBean.dadosCNPJBuscado[0].naturezaJuridica}" />
 				<br />
-				<h:outputText value="Atividades Secundárias: #{consultaCnpjBean.dadosCNPJBuscado[0].listaDeAtividadesSecundarias}" />
+				<h:outputText
+					value="Atividades Secundárias: #{consultaCnpjBean.dadosCNPJBuscado[0].listaDeAtividadesSecundarias}" />
 			</h:panelGrid>
 
 			<h:panelGroup rendered="#{empty consultaCnpjBean.dadosCNPJBuscado}">

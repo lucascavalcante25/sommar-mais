@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf16816195161220" configfile="/sommar-mais/src/main/webapp/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="caminho_da_pagina_atual.xhtml" id="pf16900516150840" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf16900516150851" path="/caminho_da_pagina_atual.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="paginas/Index.xhtml" id="pf16900516150852" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf16900516150851" path="/paginas/Index.xhtml"/>
+  <links id="pf16900516150851" target="pf16900516150852" source="pf16900516150840" fromaction="#{seuBean.metodoDeAcao}"/>
+</pageflow:Pageflow>
