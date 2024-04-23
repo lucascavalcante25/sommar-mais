@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang=”pt-br” xmlns:th="http://thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sommar +</title>
+<link rel="icon" type="image/png" href="/imagens/iconSommarSmall.png">
+<link
+	href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css"
+	rel="stylesheet" />
+<link href="css2/styles.css" rel="stylesheet" />
+<script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"
+	crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<style>
+.text-orange {
+	color: #FF8C00;
+}
+
+.bg-custom-color {
+	background-color: #203660; /* substitua #203660 pela cor desejada */
+}
+
+.sb-sidenav-custom-color {
+	background-color: #203660; /* Substitua #203660 pela cor desejada */
+}
+
+.sb-sidenav-custom-color .nav-link {
+	color: white; /* Define a cor do texto como branco */
+}
+
+.modal-backdrop {
+	background-color: rgba(0, 0, 0, 0.5);
+	/* Cor escura com transparência */
+}
+
+.modal.fade.show {
+	display: block !important; /* Garante que o modal seja exibido */
+}
+
+.modal-backdrop.fade.show {
+	display: block !important; /* Garante que o backdrop seja exibido */
+}
+
+/* .modal-loading { */
+/* 	text-align: center; /* Centraliza o conteúdo do spinner */
+*
+/
+/* 	padding: 20px; /* Adiciona um espaçamento interno */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*
+/
+/* 	display: inline-flex; */
+/* 	/* Exibir o spinner e o texto do botão em linha */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*
+/
+/* 	align-items: center; /* Alinhar verticalmente os elementos */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*
+/
+/* 	margin-left: 5px; /* Adicionar um espaço à esquerda do spinner */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*
+/
+/* } */
+</style>
+</head>
+<body>
+	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-custom-color">
+		<!-- Navbar Brand-->
+		<a class="navbar-brand ps-3" href="/"><img
+			src="/imagens/logoSommar.png" alt="Logo da Empresa"
+			style="width: 158px; height: 82px; margin-left: 16px; margin-top: 5px"></a>
+		<!-- Sidebar Toggle-->
+		<button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0"
+			id="sidebarToggle" href="#!">
+			<i class="fas fa-bars"></i>
+		</button>
+		<!-- Navbar Search-->
+		<form
+			class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+			<div class="input-group"></div>
+		</form>
+		<!-- Navbar-->
+	</nav>
+	<div id="layoutSidenav">
+		<div id="layoutSidenav_nav">
+			<nav class="sb-sidenav accordion sb-sidenav-custom-color"
+				id="sidenavAccordion">
+				<div class="sb-sidenav-menu">
+					<div class="nav">
+						<a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+							data-bs-target="#collapseLayouts" aria-expanded="false"
+							aria-controls="collapseLayouts">
+							<div class="sb-nav-link-icon">
+								<i class="fas fa-user"></i>
+							</div> Cliente
+							<div class="sb-sidenav-collapse-arrow">
+								<i class="fas fa-angle-down"></i>
+							</div>
+						</a>
+						<div class="collapse" id="collapseLayouts"
+							aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+							<nav class="sb-sidenav-menu-nested nav">
+								<a class="nav-link" href="/clientes">
+									<div class="sb-nav-link-icon">
+										<i class="fas fa-user"></i>
+									</div> Clientes
+								</a>
+							</nav>
+						</div>
+					</div>
+				</div>
+			</nav>
+		</div>
+		<div id="layoutSidenav_content">
+			<main>
+				<br>
+				<div class="container-fluid px-4">
+					<div class="row">
+						<div class="col">
+							<div class="card-body">
+								<button type="button" class="btn btn-success" id="btnCadastrar">
+									<i class="fas fa-list"></i> Novo
+								</button>
+								<div id="formularioContainer" style="display: none;">
+									<div class="container">
+										<div class="row">
+											<div class="col">
+												<div class="card-header card-title">
+													<h3>Cadastrar Cliente</h3>
+												</div>
+												<th:block th:include="mensagem-validacao"></th:block>
+												<form id="formCadastroManual"
+													th:action="/salvar-cliente-manual" method="post">
+													<div class="form-group row">
+														<div class="col-sm-7">
+															<div class="input-group">
+																<input type="text" class="form-control" id="cnpj"
+																	placeholder="CNPJ do cliente" required>
+																<div class="input-group-append">
+																	<button type="button" class="btn btn-primary"
+																		id="pesquisarCNPJ">
+																		<span id="btnText">Pesquisar</span> <span
+																			id="loadingSpinner" class="modal-loading"
+																			style="display: none;"> <!-- Adicione aqui o seu spinner -->
+																			<div
+																				class="spinner-border spinner-border-sm text-light"
+																				role="status">
+																				<span class="visually-hidden">Carregando...</span>
+																			</div>
+																		</span>
+																	</button>
+																	<button type="button" class="btn btn-secondary"
+																		id="cadastrarManual">Cadastrar Manual</button>
+																</div>
+															</div>
+														</div>
+														<small class="form-text text-muted col-sm-3"></small>
+													</div>
+													<br>
+													<!-- Adicione um elemento para exibir mensagens de erro -->
+													<div id="mensagemErro" class="alert alert-danger"
+														style="display: none;"></div>
+													<!-- Campos para cadastro manual -->
+													<div id="cadastroManual" style="display: none;">
+														<fieldset>
+															<legend>Dados Básicos</legend>
+															<div class="row mb-3">
+																<div class="form-group col-md-4">
+																	<label for="cnpjCadastro">CNPJ:</label> <input
+																		type="text" class="form-control" id="cnpjCadastro">
+																</div>
+																<div class="form-group col-md-4">
+																	<label for="abertura">Abertura:</label> <input
+																		type="text" class="form-control" id="abertura">
+																</div>
+																<div class="form-group col-md-4">
+																	<label for="situacao">Situação:</label> <input
+																		type="text" class="form-control" id="situacao">
+																</div>
+																<div class="form-group col-md-4">
+																	<label for="nome">Nome:</label> <input type="text"
+																		class="form-control" id="nome">
+																</div>
+																<div class="form-group col-md-4">
+																	<label for="naturezaJuridica">Natureza
+																		jurídica:</label> <input type="text" class="form-control"
+																		id="naturezaJuridica">
+																</div>
+																<div class="form-group col-md-4">
+																	<label for="atividadePrincipal">Atividade
+																		Principal:</label> <input type="text" class="form-control"
+																		id="atividadePrincipal">
+																</div>
+															</div>
+															<div class="row mb-3">
+																<div class="form-group col-md-4">
+																	<label for="fantasia">Fantasia:</label> <input
+																		type="text" class="form-control" id="fantasia">
+																</div>
+																<div class="form-group col-md-4">
+																	<label for="status">Status:</label> <input type="text"
+																		class="form-control" id="status">
+																</div>
+																<div class="form-group col-md-4">
+																	<label for="dataSituacao">Data Situação:</label> <input
+																		type="text" class="form-control" id="dataSituacao">
+																</div>
+															</div>
+															<div class="row mb-3">
+																<div class="form-group col-md-4">
+																	<label for="tipo">Tipo:</label> <input type="text"
+																		class="form-control" id="tipo">
+																</div>
+																<div class="form-group col-md-4">
+																	<label for="porte">Porte:</label> <input type="text"
+																		class="form-control" id="porte">
+																</div>
+																<div class="form-group col-md-4">
+																	<label for="telefoneContato">Telefone contato:</label>
+																	<input type="text" class="form-control"
+																		id="telefoneContato" required>
+																</div>
+															</div>
+														</fieldset>
+														<fieldset>
+															<legend>Endereço</legend>
+															<div class="row mb-3">
+																<div class="form-group col-md-6">
+																	<label for="logradouro">Logradouro:</label> <input
+																		type="text" class="form-control" id="logradouro">
+																</div>
+																<div class="form-group col-md-6">
+																	<label for="numero">Número:</label> <input type="text"
+																		class="form-control" id="numero">
+																</div>
+															</div>
+															<div class="row mb-3">
+																<div class="form-group col-md-6">
+																	<label for="municipio">Município:</label> <input
+																		type="text" class="form-control" id="municipio">
+																</div>
+																<div class="form-group col-md-6">
+																	<label for="bairro">Bairro:</label> <input type="text"
+																		class="form-control" id="bairro">
+																</div>
+															</div>
+															<div class="row mb-3">
+																<div class="form-group col-md-6">
+																	<label for="uf">UF:</label> <input type="text"
+																		class="form-control" id="uf">
+																</div>
+																<div class="form-group col-md-6">
+																	<label for="cep">CEP:</label> <input type="text"
+																		class="form-control" id="cep">
+																</div>
+															</div>
+														</fieldset>
+														<fieldset>
+															<legend>Dados de Cobrança</legend>
+															<div class="row mb-3">
+																<div class="form-group col-md-4">
+																	<label for="telefoneCobranca">Telefone
+																		cobrança:</label> <input type="text" class="form-control"
+																		id="telefoneCobranca">
+																</div>
+																<div class="form-group col-md-4">
+																	<label for="vencimento">Vencimento:</label> <input
+																		type="text" class="form-control" id="vencimento">
+																</div>
+																<div class="form-group col-md-4">
+																	<label for="valor">Valor:</label> <input type="text"
+																		class="form-control" id="valor">
+																</div>
+															</div>
+															<div class="row mb-3">
+																<div class="form-group col-md-6">
+																	<label for="emailCobranca">E-mail para
+																		cobrança:</label> <input type="text" class="form-control"
+																		id="emailCobranca">
+																</div>
+															</div>
+														</fieldset>
+													</div>
+													<br>
+													<button id="btnSalvarCadastroManual" type="submit"
+														class="btn btn-success">
+														<i class="fas fa-save"></i> Salvar
+													</button>
+													<button id="btnSairCadastro" type="button"
+														class="btn btn-warning">
+														<i class="fas fa-sign-out-alt"></i> Sair
+													</button>
+													<!-- Adicione um elemento para exibir mensagens de erro, se necessário -->
+													<div id="mensagemErro" class="alert alert-danger"
+														style="display: none;"></div>
+												</form>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- Modal Resultado da pesquisa no WS da Receita Federal-->
+								<div class="modal fade" id="resultadoModal" tabindex="-1"
+									aria-labelledby="resultadoModalLabel" aria-hidden="true">
+									<div class="modal-dialog modal-dialog-centered modal-lg">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title" id="resultadoModalLabel">Resultado
+													da Pesquisa</h5>
+												<button type="button" class="btn-close"
+													data-bs-dismiss="modal" aria-label="Close"></button>
+											</div>
+											<div class="modal-body">
+												<div id="dadosCNPJModal"></div>
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary"
+													data-bs-dismiss="modal">Fechar</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								<br> <br> <input class="form-control" id="myInput"
+									type="text" placeholder="Buscar cliente na lista..."><br>
+							</div>
+							<div class="card text-center">
+								<div class="card-header card-title">
+									<h3>Lista de clientes</h3>
+								</div>
+								<div class="table-responsive">
+									<table id="tabelaclientes" class="table table-striped">
+										<thead>
+											<tr>
+												<th scope="col" style="width: 20%;">Nome</th>
+												<th scope="col" style="width: 15%;">Artista</th>
+												<th scope="col" style="width: 5%;">Tonalidade</th>
+												<th scope="col" style="width: 5%;">Andamento</th>
+												<th scope="col" style="width: 10%;">Tipo de cliente</th>
+												<th scope="col" style="width: 5%;">Ativo</th>
+												<th scope="col" style="width: 20%;">Link da versão</th>
+												<th scope="col" style="width: 10%;">Ações</th>
+												<!-- 											<th scope="col" style="width: 0%;"></th> -->
+												<!-- Coluna vazia para espaçamento -->
+											</tr>
+										</thead>
+										<tbody id="myTable">
+											<tr th:each="cliente : ${cliente}">
+												<td><span th:text="${cliente.nome}"></span></td>
+												<td><span th:text="${cliente.artista}"></span></td>
+												<td><span th:text="${cliente.tonalidade}"></span></td>
+												<td><span th:text="${cliente.andamento}"></span></td>
+												<td><span th:if="${cliente.tipoclienteEnum != null}">
+														<span
+														th:each="tipocliente, iterStat : ${cliente.tipoclienteEnum}">
+															<span th:text="${tipocliente.descricao}"></span> <span
+															th:if="${iterStat.index + 1 < cliente.tipoclienteEnum.size()}">-</span>
+													</span>
+												</span></td>
+												<td><span th:if="${cliente.ativo}">Ativo</span> <span
+													th:unless="${cliente.ativo}">Inativo</span></td>
+												<td><a th:href="${cliente.linkVersao}" target="_blank"
+													th:text="${cliente.linkVersao}"> Clique para abrir o
+														link </a></td>
+												<td><a
+													th:href="@{/visualizarArquivo(id=${cliente.id})}"
+													class="waves-effect waves-light text-orange"
+													data-toggle="tooltip" title="Visualizar Cifra"> <i
+														class="fas fa-file-lines fa-lg"></i>
+												</a> <a th:href="@{/editar-cliente(id=${cliente.id})}"
+													class="waves-effect waves-light text-primary"
+													data-toggle="tooltip" title="Editar cliente"> <i
+														class="fas fa-edit fa-lg"></i>
+												</a> <a th:href="@{/deletarcliente(id=${cliente.id})}"
+													class="waves-effect waves-light text-danger"
+													data-toggle="tooltip" title="Deletar cliente"> <i
+														class="fas fa-trash-alt fa-lg"></i>
+												</a></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</main>
+		</div>
+	</div>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+		crossorigin="anonymous"></script>
+	<script src="js/scripts-cliente.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+</body>
+</html>

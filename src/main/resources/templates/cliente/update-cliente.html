@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang=”pt-br” xmlns:th="http://thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sommar +</title>
+<link rel="icon" type="image/png" href="/imagens/iconSommarSmall.png">
+<link
+	href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css"
+	rel="stylesheet" />
+<link href="css2/styles.css" rel="stylesheet" />
+<script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"
+	crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<style>
+.text-orange {
+	color: #FF8C00;
+}
+
+.bg-custom-color {
+	background-color: #203660; /* substitua #203660 pela cor desejada */
+}
+
+.sb-sidenav-custom-color {
+	background-color: #203660; /* Substitua #203660 pela cor desejada */
+}
+
+.sb-sidenav-custom-color .nav-link {
+	color: white; /* Define a cor do texto como branco */
+}
+</style>
+</head>
+<body>
+	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-custom-color">
+		<!-- Navbar Brand-->
+		<a class="navbar-brand ps-3" href="/"><img
+			src="/imagens/logoSommar.png" alt="Logo da Empresa"
+			style="width: 158px; height: 82px; margin-left: 16px; margin-top: 5px"></a>
+		<!-- Sidebar Toggle-->
+		<button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0"
+			id="sidebarToggle" href="#!">
+			<i class="fas fa-bars"></i>
+		</button>
+		<!-- Navbar Search-->
+		<form
+			class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+			<div class="input-group"></div>
+		</form>
+		<!-- Navbar-->
+	</nav>
+	<div id="layoutSidenav">
+		<div id="layoutSidenav_nav">
+			<nav class="sb-sidenav accordion sb-sidenav-custom-color"
+				id="sidenavAccordion">
+				<div class="sb-sidenav-menu">
+					<div class="nav">
+						<a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+							data-bs-target="#collapseLayouts" aria-expanded="false"
+							aria-controls="collapseLayouts">
+							<div class="sb-nav-link-icon">
+								<i class="fas fa-user"></i>
+							</div> Cliente
+							<div class="sb-sidenav-collapse-arrow">
+								<i class="fas fa-angle-down"></i>
+							</div>
+						</a>
+						<div class="collapse" id="collapseLayouts"
+							aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+							<nav class="sb-sidenav-menu-nested nav">
+								<a class="nav-link" href="/clientes">
+									<div class="sb-nav-link-icon">
+										<i class="fas fa-user"></i>
+									</div> Clientes
+								</a>
+							</nav>
+						</div>
+					</div>
+				</div>
+			</nav>
+		</div>
+		<div id="layoutSidenav_content">
+			<main>
+				<br>
+				<div class="container-fluid px-4">
+					<th:block th:include="mensagem-validacao"></th:block>
+					<form th:action="@{/atualizar-cliente}" th:object="${cliente}"
+						method="post" enctype="multipart/form-data">
+						<h1>Editar cliente</h1>
+						<br> <input type="hidden" th:field="*{id}" />
+						<div class="form-group">
+							<label for="nome"><b>Nome do cliente:</b></label> <input
+								type="text" class="form-control" id="nome" name="nome" required
+								th:field="*{nome}" /> <small class="form-text text-muted"><i>*
+							</i></small>
+						</div>
+						<div class="row">
+							<div class="col">
+								<div class="form-group">
+									<label><b>CNPJ</b></label><br> <input type="text" value=""
+										name="cnpj" class="form-control" placeholder="CNPJ do cliente"
+										th:field="*{cnpj}">
+								</div>
+							</div>
+							<div class="col">
+								<div class="form-group">
+									<label><b>Abertura</b></label> <input type="text" value=""
+										name="abertura" class="form-control"
+										placeholder="Data de abertura" required th:field="*{abertura}" />
+								</div>
+							</div>
+							<div class="col">
+								<label><b>Situação</b></label> <input type="text" value=""
+									name="situacao" class="form-control"
+									placeholder="Situação do cliente" required
+									th:field="*{situacao}" />
+							</div>
+							<div class="col">
+								<div class="form-group">
+									<label><b>Tipo</b></label><br> <input type="text" value=""
+										name="tipo" class="form-control" placeholder="Tipo do cliente"
+										required th:field="*{tipo}">
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col">
+								<div class="form-group">
+									<label><b>Porte</b></label><br> <input type="text"
+										value="" name="porte" class="form-control"
+										placeholder="Porte do cliente" th:field="*{porte}">
+								</div>
+							</div>
+							<div class="col">
+								<div class="form-group">
+									<label><b>Fantasia</b></label><br> <input type="text"
+										value="" name="fantasia" class="form-control"
+										placeholder="Nome fantasia" th:field="*{fantasia}">
+								</div>
+							</div>
+							<div class="col">
+								<div class="form-group">
+									<label><b>Última Atualização</b></label><br> <input
+										type="text" value="" name="ultimaAtualizacao"
+										class="form-control" placeholder="Data da última atualização"
+										th:field="*{ultimaAtualizacao}">
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col">
+								<div class="form-group">
+									<label><b>Logradouro</b></label><br> <input type="text"
+										value="" name="logradouro" class="form-control"
+										placeholder="Endereço" th:field="*{logradouro}">
+								</div>
+							</div>
+							<div class="col">
+								<div class="form-group">
+									<label><b>Número</b></label><br> <input type="text"
+										value="" name="numero" class="form-control"
+										placeholder="Número do endereço" th:field="*{numero}">
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col">
+								<div class="form-group">
+									<label><b>Município</b></label><br> <input type="text"
+										value="" name="municipio" class="form-control"
+										placeholder="Município" th:field="*{municipio}">
+								</div>
+							</div>
+							<div class="col">
+								<div class="form-group">
+									<label><b>Bairro</b></label><br> <input type="text"
+										value="" name="bairro" class="form-control"
+										placeholder="Bairro" th:field="*{bairro}">
+								</div>
+							</div>
+							<div class="col">
+								<div class="form-group">
+									<label><b>UF</b></label><br> <input type="text" value=""
+										name="uf" class="form-control" placeholder="Estado"
+										th:field="*{uf}">
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col">
+								<div class="form-group">
+									<label><b>CEP</b></label><br> <input type="text" value=""
+										name="cep" class="form-control" placeholder="CEP"
+										th:field="*{cep}">
+								</div>
+							</div>
+							<div class="col">
+								<div class="form-group">
+									<label><b>Email</b></label><br> <input type="email"
+										value="" name="email" class="form-control"
+										placeholder="Endereço de email" th:field="*{email}">
+								</div>
+							</div>
+							<div class="col">
+								<div class="form-group">
+									<label><b>Telefone</b></label><br> <input type="text"
+										value="" name="telefone" class="form-control"
+										placeholder="Número de telefone" th:field="*{telefone}">
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col">
+								<div class="form-group">
+									<label><b>Status</b></label><br> <input type="text"
+										value="" name="status" class="form-control"
+										placeholder="Status" th:field="*{status}">
+								</div>
+							</div>
+							<div class="col">
+								<div class="form-group">
+									<label><b>Complemento</b></label><br> <input type="text"
+										value="" name="complemento" class="form-control"
+										placeholder="Complemento do endereço"
+										th:field="*{complemento}">
+								</div>
+							</div>
+							<div class="col">
+								<div class="form-group">
+									<label><b>Capital Social</b></label><br> <input
+										type="text" value="" name="capitalSocial" class="form-control"
+										placeholder="Capital social" th:field="*{capitalSocial}">
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col">
+								<div class="form-group">
+									<label><b>Natureza Jurídica</b></label><br> <input
+										type="text" value="" name="naturezaJuridica"
+										class="form-control" placeholder="Natureza jurídica"
+										th:field="*{naturezaJuridica}">
+								</div>
+							</div>
+							<div class="col">
+								<div class="form-group">
+									<label><b>Atividade Principal Code</b></label><br> <input
+										type="text" value="" name="atividadePrincipalCode"
+										class="form-control"
+										placeholder="Código da atividade principal"
+										th:field="*{atividadePrincipalCode}">
+								</div>
+							</div>
+							<div class="col">
+								<div class="form-group">
+									<label><b>Atividade Principal Text</b></label><br> <input
+										type="text" value="" name="atividadePrincipalText"
+										class="form-control"
+										placeholder="Descrição da atividade principal"
+										th:field="*{atividadePrincipalText}">
+								</div>
+							</div>
+						</div>
+						<!-- 						<div class="row"> -->
+						<!-- 							<div class="col"> -->
+						<!-- 								<div class="form-group"> -->
+						<!-- 									<label><b>Lista de Atividades Secundárias</b></label><br> -->
+						<!-- 									Assuming you want a multi-select for the list of secondary activities -->
+						<!-- 									You might want to adjust the input type based on your requirements -->
+						<!-- 									<select name="listaDeAtividadesSecundarias" -->
+						<!-- 										class="form-control" multiple -->
+						<!-- 										th:field="*{listaDeAtividadesSecundarias}"> -->
+						<!-- 										Add options here -->
+						<!-- 									</select> -->
+						<!-- 								</div> -->
+						<!-- 							</div> -->
+						<!-- 						</div> -->
+						<div class="row">
+							<div class="col">
+								<div class="form-check">
+									<input type="checkbox" class="form-check-input" name="ativo"
+										id="ativoCheckbox" th:field="*{ativo}"> <label
+										class="form-check-label" for="ativoCheckbox"><b>Ativo</b></label>
+								</div>
+							</div>
+						</div>
+						<!--     Se o cliente tiver um arquivo associado, exibe o link para download ou visualização -->
+						<!--     <div th:if="${cliente.arquivo != null}"> -->
+						<!--         <p> -->
+						<!--             Cifra atual: <a th:href="@{/visualizarArquivo(id=${cliente.id})}">Visualizar</a> -->
+						<!--         </p> -->
+						<!--     </div> -->
+						<!--     Adiciona um campo para incluir um novo arquivo -->
+						<!--     <div class="form-group"> -->
+						<!--         <label for="file"><b>Novo Arquivo:</b></label>  -->
+						<!--         <input type="file" class="form-control-file" id="file" name="file" accept=".pdf, .doc, .docx">  -->
+						<!--         <small class="form-text text-muted">Selecione um novo arquivo para substituir o atual (opcional).</small> -->
+						<!--     </div> -->
+						<br>
+						<button type="submit" class="btn btn-success">Atualizar</button>
+						<button id="btnSairCadastro" type="button" class="btn btn-warning"
+							onclick="window.location.href='/clientes';">
+							<i class="fas fa-sign-out-alt"></i> Voltar
+						</button>
+					</form>
+				</div>
+			</main>
+		</div>
+	</div>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+		crossorigin="anonymous"></script>
+	<script src="js/scripts-update-cliente.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"
+		crossorigin="anonymous"></script>
+	<script src="assets/demo/chart-area-demo.js"></script>
+	<script src="assets/demo/chart-bar-demo.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
+		crossorigin="anonymous"></script>
+</body>
+</html>
